@@ -1,0 +1,60 @@
+<html lang="en" style="background-color: black; overflow: hidden;">
+  <div
+    id="my_bouncing_box"
+    style="
+      background-color: blue;
+      border-radius: 3px;
+      position: absolute;
+      left: 0px;
+      top: 0px;
+      min-width: 100px;
+      min-height: 100px;
+      text-align: center;
+      font-weight: bold;
+      color: #999;
+    "
+  >
+    Obioha
+  </div>
+  <script>
+    const main = document.getElementById("my_bouncing_box");
+    const variables = {
+      w: main.clientWidth,
+      h: main.clientHeight,
+      x: 30,
+      y: 0,
+      dx: 1,
+      dy: 1,
+      speed: 5,
+      animate: {},
+      move: false,
+    };
+
+    if (!variables.move) {
+      variables.animate = requestAnimationFrame(mover);
+      variables.move = true;
+    } else {
+      cancelAnimationFrame(variables.animate);
+      variables.move = false;
+    }
+
+    function mover() {
+      if (variables.x > window.innerWidth - variables.w || variables.x < 0) {
+        variables.dx *= -1;
+      }
+      if (variables.y > window.innerHeight - variables.h || variables.y < 0) {
+        variables.dy *= -1;
+      }
+
+      variables.x += variables.dx * variables.speed;
+      variables.y += variables.dy * variables.speed;
+
+      main.style.left = `${variables.x}px`;
+      main.style.top = `${variables.y}px`;
+
+      if (variables.move) {
+        variables.animate = requestAnimationFrame(mover);
+      }
+    }
+  </script>
+</html>
